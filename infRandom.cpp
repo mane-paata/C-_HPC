@@ -5,7 +5,7 @@ using namespace std;
 
 void print_usage()
 {
-  cout << "Usage: ./testWrite n [ filename ]" << endl;
+  cout << "Usage: ./infRandom n [ filename ]" << endl;
   exit(0);
 }
 
@@ -15,11 +15,15 @@ int main(int argc, char *argv[])
     print_usage();
 
   int length = stoi(argv[1]);
-  Vector a = randomVector(length);
-  string out = "cout";
   
   if (length < 0)
     exit(-2);
+
+  Vector a = randomVector(length);
+  string out = "cout";
+
+  int max_indx = infNormIndex(a);
+  cout << max_indx << " " << a(max_indx) << endl;
 
   if (argc == 3)
     out = argv[2];

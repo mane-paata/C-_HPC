@@ -92,54 +92,53 @@ Vector readVector(string filename)
 /*
  * Write given vector to a file
 */
-void writeVector(const Vector& in_vector, std::string filename)
+void writeVector(const Vector& in_vector, string filename)
 {
   
-  bool use_cout = (filename.compare("cout") == 0);
   ofstream output;
   int length = in_vector.num_rows();
   
   // Write header first
-  if(!use_cout)
-  {
-    output.open(filename);
-    output << HEADER << endl;
-  }
-  else
-  {
-    cout << HEADER << endl;
-  }
+  output.open(filename);
+  output << HEADER << endl;
 
   if (length > 0)
   {
     // Write number of rows
-    if (!use_cout)
-      output << length << endl;
-    else
-      cout << length << endl;
+    output << length << endl;
 
     // Write all numbers
     for (int i=0; i < length; i++)
-    {
-      if (!use_cout)
-        output << in_vector(i) << endl;
-      else
-        cout << in_vector(i) << endl;
-    }
+      output << in_vector(i) << endl;
   }
 
   // Write trailer
-  if(!use_cout)
-  {
-    output << TRAILER << endl;
-    output.close();
-  }
-  else
-  {
-    cout << TRAILER << endl;
-  }
+  output << TRAILER << endl;
+  output.close();
 }
 
+
+void writeVector(const Vector& in_vector, std::ostream& out_stream)
+{
+
+  int length = in_vector.num_rows();
+  
+  // Write header first
+  out_stream << HEADER << endl;
+
+  if (length > 0)
+  {
+    // Write number of rows
+    out_stream << length << endl;
+
+    // Write all numbers
+    for (int i=0; i < length; i++)
+      out_stream << in_vector(i) << endl;
+  }
+
+  // Write trailer
+  out_stream << TRAILER << endl;
+}
 
 /* Function to generate random vector
 * input N : vector length
@@ -148,9 +147,10 @@ void writeVector(const Vector& in_vector, std::string filename)
 Vector randomVector(int length)
 {
   Vector rand_vector(length);
+  srand(time(0)); //use current time as seed for random generator
   for(int i=0; i < length; i++)
   {
-    rand_vector(i) = rand();
+    rand_vector(i) = (rand() % 9) + (rand() % 9) / 10.0;
   }
   return rand_vector;
 }
@@ -162,17 +162,16 @@ Vector randomVector(int length)
 */
 size_t infNormIndex(const Vector& x)
 {
-  double greatest = 0;
-  int i = 0, index = 0;
-  int length = x.num_rows();
-  while(i <= length)
+  double max = 0;
+  int index = 0;
+  for (int i=0; i < x.num_rows(); i++)
   {
-    if(greatest < abs(x(i)))
+    double abs_x = abs(x(i));
+    if (abs_x > max)
     {
-      greatest = abs(x(i));
-      index += 1;
+      max = abs_x;
+      index = i;
     }
-    i += 1;
   }
   return index;
 }

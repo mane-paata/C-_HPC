@@ -5,6 +5,7 @@
 
 Vector readVector(std::string filename);
 void writeVector(const Vector& in_vector, std::string filename);
+void writeVector(const Vector& in_vector, std::ostream& out_stream);
 Vector randomVector(int length);
 size_t infNormIndex(const Vector& x);
 double infNorm(const Vector& x);
