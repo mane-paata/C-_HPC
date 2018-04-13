@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
   if (argc == 3)
     output = argv[2];
 
-  Vector a = readVector("foo.in");
+  Vector a = randomVector(length);
   writeVector(a, output);
   return 0;
 }

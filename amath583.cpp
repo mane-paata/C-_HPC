@@ -1,5 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <cstdlib>
+#include <cmath>
 #include "amath583.hpp"
 
 using namespace std;
@@ -135,4 +138,68 @@ void writeVector(const Vector& in_vector, std::string filename)
   {
     cout << TRAILER << endl;
   }
+}
+
+
+/* Function to generate random vector
+* input N : vector length
+* output Vector object
+*/
+Vector randomVector(int length)
+{
+  Vector rand_vector(length);
+  for(int i=0; i < length; i++)
+  {
+    rand_vector(i) = rand();
+  }
+  return rand_vector;
+}
+
+/*
+* Function to return index of the maximum absolute value of the vector
+* input : Vector
+* output : index of the maximum absolute value
+*/
+size_t infNormIndex(const Vector& x)
+{
+  double greatest = 0;
+  int i = 0, index = 0;
+  int length = x.num_rows();
+  while(i <= length)
+  {
+    if(greatest < abs(x(i)))
+    {
+      greatest = abs(x(i));
+      index += 1;
+    }
+    i += 1;
+  }
+  return index;
+}
+
+/*
+* Function to return infinity norm
+* input : Vector
+* output : maximum absolute value
+*/
+
+double infNorm(const Vector& x)
+{
+  size_t ind = infNormIndex(x);
+  return abs(x(ind));
+}
+
+/*
+Function to find the inner product of two vectors
+input : two vectors
+output: inner product
+*/
+double dot583(const Vector& x, const Vector& y)
+{
+  double innerprod = 0;
+  for(int i =0; i < x.num_rows(); i++)
+  {
+    innerprod += x(i)*y(i);
+  }
+  return innerprod;
 }
