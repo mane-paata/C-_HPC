@@ -33,12 +33,12 @@ void time_add_vec_ppe(int dim, int loop_number)
 	t2.start(); 
 	for(int i=0; i < loop_number; i++){
 		//for(int k=0; k < dim; k++)
-			y += y + x;
+			y += x;
   }	
 	t2.stop(); 
  	//std::cout << "Time taken to run vector addition using overloaded += operator: " << t2.elapsed() << std::endl;
   
-	cout << " Ratio of time taken for vector addition with low performance= " << t1.elapsed()/t2.elapsed() << "seconds" << endl;
+	cout << " Ratio of time taken for vector addition with low performance= " << t1.elapsed()/t2.elapsed()  << endl;
 }
 
 // High Performance Loop for vector addition, tobe written into timed_add_vec_hpe.txt
@@ -66,12 +66,12 @@ void time_add_vec_hpe(int dim, int loop_number)
 	t2.start(); 
 	for(int i=0; i < loop_number; i++){
 		//for(int k=0; k < dim; k++)
-			y += y + x;
+			y += x;
   }	
 	t2.stop(); 
  	//std::cout << "Time taken to run vector addition using overloaded += operator: " << t2.elapsed() << std::endl;
 
-	cout << " Ratio of time taken for vector addition with high performance = " << t1.elapsed()/t2.elapsed() << "seconds" << endl;
+	cout << " Ratio of time taken for vector addition with high performance = " << t1.elapsed()/t2.elapsed()  << endl;
 }
 
 // Low performance loop for scalar multiplication, to be written into timed_add_vec_ppe.txt
@@ -100,12 +100,12 @@ void time_mul_vec_ppe(int dim, int loop_number)
 	t2.start(); 
 	for(int i=0; i < loop_number; i++){
 		//for(int k=0; k < dim; k++)
-			y += y + a*x;
+			y += a*x;
   }	
 	t2.stop(); 
  	//std::cout << "Time taken to run scalar multiplication using overloaded += operator: " << t2.elapsed() << std::endl;
   
-	cout << " Ratio of scalar multiplication low performance= " << t1.elapsed()/t2.elapsed() << "seconds" << endl;
+	cout << " Ratio of scalar multiplication low performance= " << t1.elapsed()/t2.elapsed() << endl;
 }
 
 // High Performance Loop for scalar multiplication, tobe written into timed_add_vec_hpe.txt
@@ -134,12 +134,12 @@ void time_mul_vec_hpe(int dim, int loop_number)
 	t2.start(); 
 	for(int i=0; i < loop_number; i++){
 		//for(int k=0; k < dim; k++)
-			y += y + a*x;
+			y += a*x;
   }	
 	t2.stop(); 
  	//std::cout << "Time taken to run scalar multiplication using overloaded += operator: " << t2.elapsed() << std::endl;
 
-	cout << " Ratio of time taken scalar multiplication high performance = " << t1.elapsed()/t2.elapsed() << "seconds" << endl;
+	cout << " Ratio of time taken scalar multiplication high performance = " << t1.elapsed()/t2.elapsed()  << endl;
 }
 
 
