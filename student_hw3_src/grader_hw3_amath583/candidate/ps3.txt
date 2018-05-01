@@ -1,0 +1,81 @@
+///////////////////////////// Question 3.1 /////////////////////////////////////////////
+1. What is the difference between single and double precision for construction with no optimization? Explain. 
+
+  Single Precision: 279 ms
+  Double Precision: 368 ms
+
+  The double precision numbers require twice the memory for each number and thus there is heavier load on the caches. So, there is more memory bandwidth to be filled and hence double precision
+  takes more construction time compared to single precision.
+
+2. What is the difference between single and double precision for multiplication with no optimization? Explain.
+
+  Single Precision: 217 ms
+  Double Precision: 217 ms
+
+  There is less or no difference in multiplication times between single or double precision with no optimization because the fetch from cache is done in 64-bit blocks and hence the multiplication times are comparable.
+
+3. What is the difference between single and double precision for construction with optimization? Explain. 
+
+  Single Precision: 118 ms
+  Double Precision: 142 ms
+
+  As explained in the case without optimization, even with optimization double has more load on memory. However, the construction times are reduced because of the loop optimization, which fetches more data at a time.
+
+4. What is the difference between single and double precision for multiplication with optimization? Explain. 
+
+  Single Precision: 14 ms
+  Double Precision: 26 ms
+
+  Since the memory bandwidth for float is less, when fetched in optimized blocks, it has lesser load on cache/RAM compared to double. 
+
+5. What is the difference between double precision multiplication with and without optimization? Explan. 
+
+   Without optimization, loops are not unrolled. There is a memory operation at each iteration and hence it takes more time. However, with optimization, memory is fetched in blocks mainly due to loop unrollment. Therefore,
+   we see lesser time for optimized multiplication.
+
+//////////////////////////////// Question 3.2 ///////////////////////////////////////////////////////////////////////////////////////
+
+1. Description of what changes you made to the above snippet of timing code, if any
+
+  a) Removed all the abstraction. Used sum += num1 * num2 inside "for" loop.
+  b) "cout << sum << endl" was added, after the timer is stopped.
+
+2. Explanation of why you made those changes 
+
+  a) The question asked for maximum performance, hence abstraction was removed. Also addition and multiplication inside for loop is asked, therefore "+=" is used.  
+  b) With optimization, for loop was not being executed.
+
+3. Clock rate of your computer 
+
+  2760.938 MHz
+
+4. Max achieved ﬂoating point rate of your timed code (with and without optimization)
+
+  With optimization: 646.443 MHz (-O3 flag)
+  Without optimization: 322.930 MHz
+
+/////////////////////////////////////// Question 3.4 ///////////////////////////////////////////////////////////////////////
+
+Does the operator+= match the hand-written variant? If not, explain. 
+
+  No.
+  
+  With operator+=, we have an extra function call, and with each function call new vector is created for a*x. 
+  Whereas for hand written loop, there is no extra function call and also y(i) = y(i) + a * x(i) is a scalar operation per iteration, without new vector memory handling.
+
+Extra credit: can you think of a way to circumvent the problem (if there was a problem)?
+
+  We can define another operator*=, in which we can perform x*=a without creating/destroying new vector memory every iteration.
+
+  Vector& operator*=(Vector& x, const double a)
+  {
+    for(size_t i=0; i < x.num_rows(); i++){
+      x(i) *= a;
+    }
+    return x;
+  }
+
+
+ 
+
+

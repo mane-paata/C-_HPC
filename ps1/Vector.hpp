@@ -2,6 +2,7 @@
 
 #ifndef __VECTOR_HPP__
 #define __VECTOR_HPP__ 1
+using namespace std;
 
 class Vector{
 public:

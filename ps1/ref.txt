@@ -1,0 +1,11 @@
+Docker installation:
+  https://www.docker.com/
+
+Ubuntu related:
+  https://askubuntu.com
+
+C++ Reference: 
+  http://www.cplusplus.com/reference
+
+Division using Newtons method:
+  https://en.wikipedia.org/wiki/Division_algorithm

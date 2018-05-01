@@ -1,0 +1,15 @@
+Docker related:
+  https://www.docker.com/
+
+Ubuntu related:
+  https://askubuntu.com
+
+C++ Reference: 
+  http://www.cplusplus.com/reference
+  http://en.cppreference.com/w/cpp/error/assert
+  https://stackoverflow.com/questions/7868936/read-file-line-by-line
+  https://stackoverflow.com/questions/8863505/simple-file-write-function-in-c
+
+
+Random number generation:
+  https://www.daniweb.com/programming/software-development/threads/1769/c-random-numbers

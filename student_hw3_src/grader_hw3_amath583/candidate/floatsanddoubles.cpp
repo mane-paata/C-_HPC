@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <cstddef>
-#include <cstdlib>
 #include "Timer.hpp"
 
 using namespace std;
@@ -41,7 +40,7 @@ private:
   std::vector<float> storage_;  
 };
 
-void calculate_double_precision(long dim, double num1, double num2)
+void calculate_double_precision(int dim, double num1, double num2)
 {
 	Timer t; 
 	t.start(); 
@@ -61,7 +60,7 @@ void calculate_double_precision(long dim, double num1, double num2)
 
 }
 
-void calculate_float_precision(long dim, float num1, float num2)
+void calculate_float_precision(int dim, float num1, float num2)
 {
 	Timer t; 
 	t.start(); 
@@ -85,9 +84,9 @@ void calculate_float_precision(long dim, float num1, float num2)
 int main(){
 
 	cout << "Calculating double precision with optimization" << endl;
-	calculate_double_precision(1024*1024*1024, random(), random());
+	calculate_double_precision(10000000, 3.1423456, 27.0);
 
 	cout << "Calculating float precision with optimization" << endl;
-	calculate_float_precision(1024*1024*1024, random(), random());
+	calculate_float_precision(10000000, 3.1423456, 27.0);
 
 }

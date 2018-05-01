@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('pdf')
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
@@ -14,7 +16,7 @@ for name in sys.argv[1:]:
 
     print ('plotting ' + infile)
 
-    with open(infile, 'rb') as csvfile:
+    with open(infile, 'r') as csvfile:
         Ns = []
         Flops = []
         
@@ -23,21 +25,18 @@ for name in sys.argv[1:]:
         for row in reader:
             Ns.append(int(row['N']))
             Flops.append(float(row['Flops'])/1.e9)
-        
 
         plt.semilogx(Ns, Flops)
 
-
 pp = PdfPages('matplots.pdf');
 
-plt.axis([0, 4096, .01, 6])
+plt.axis([8, 4096, .01, 6])
 plt.legend(names)
 plt.title('Matrix Matrix Product Performance')
 plt.xlabel('Matrix Dimension')
 plt.ylabel('GFlops')
 plt.xticks([8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096] , [8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096])
 
-
 pp.savefig()
 pp.close();
-#plt.show()
+

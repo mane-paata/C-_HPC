@@ -1,0 +1,51 @@
+1. What is the difference between single and double precision for construction with no optimization? Explain. 
+
+Single Precision: 279 ms
+Double Precision: 368 ms
+
+The double precision numbers require twice the memory for each number and thus there is heavier load on the caches. So, there is more memory bandwidth to be filled and hence double precision
+takes more construction time compared to single precision.
+
+2. What is the difference between single and double precision for multiplication with no optimization? Explain.
+
+Single Precision: 217 ms
+Double Precision: 217 ms
+
+There is less or no difference in multiplication times between single or double precision with no optimization because the fetch from cache is done in 64-bit blocks and dou
+
+3. What is the difference between single and double precision for construction with optimization? Explain. 
+
+Single Precision: 118 ms
+Double Precision: 142 ms
+
+The construction time obtained for single precision with -O3 optimization is:
+
+
+
+4. What is the difference between single and double precision for multiplication with optimization? Explain. 
+
+Single Precision: 14 ms
+Double Precision: 26 ms
+
+
+5. What is the difference between double precision multiplication with and without optimization? Explan. 
+
+
+1. Description of what changes you made to the above snippet of timing code, if any
+
+  a) Removed all the abstraction. Used sum += num1 * num2 inside "for" loop.
+  b) "cout << sum << endl" was added, after the timer is stopped.
+
+2. Explanation of why you made those changes 
+
+  a) The question asked for maximum performance, hence abstraction was removed. Also addition and multiplication inside for loop is asked, therefore "+=" is used.  
+  b) With optimization, for loop was not being executed.
+
+3. Clock rate of your computer 
+
+  2760.938 MHz
+
+4. Max achieved ﬂoating point rate of your timed code (with and without optimization)
+
+  With optimization: 
+  Without optimization:

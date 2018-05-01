@@ -15,11 +15,12 @@ int main(int argc, char *argv[])
     print_usage();
 
   int length = stoi(argv[1]);
-  Vector a = randomVector(length);
-  string out = "cout";
   
   if (length < 0)
     exit(-2);
+
+  Vector a = randomVector(length);
+  string out = "cout";
 
   if (argc == 3)
     out = argv[2];

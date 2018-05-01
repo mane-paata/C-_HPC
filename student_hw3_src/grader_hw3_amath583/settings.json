@@ -1,0 +1,50 @@
+{
+	"programs" : 
+	[
+		{
+			"command" : "./add_vec.exe input_vector_1.txt input_vector_2.txt",
+			"exit_code" : 0
+		},
+		{
+			"command" : "./timed_add_vec.exe 1000 1000",
+			"exit_code" : 0
+		},
+		{
+			"command" : "./st_vec.exe input_double_1.txt input_vector_1.txt",
+			"exit_code" : 0
+		}			
+	],	
+    "output_files" :
+    [
+        {
+            "name" : "add_vec.txt",
+            "points" : 10,
+            "tolerance" : 1e-15,
+            "operator" : "eq"
+        },
+        {
+            "name" : "timed_add_vec_ppe.txt",
+            "points" : 10,
+            "tolerance" : 0.2,
+            "operator" : "skip"
+        },
+		{
+            "name" : "timed_add_vec_hpe.txt",
+            "points" : 10,
+            "tolerance" : 0.2,
+            "operator" : "skip"
+        },
+        {
+            "name" : "st_vec.txt",
+            "points" : 10,
+            "tolerance" : 1e-15,
+            "operator" : "eq"
+        }
+        
+    ],
+    "input_files" :
+    {
+	    "commands" : ["./gen_input_double.exe 1", "./gen_input_vector.exe 2 1024"],
+        "names" : ["input_vector_1.txt", "input_vector_2.txt", "input_double_1.txt"] 
+    }
+}
