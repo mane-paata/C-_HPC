@@ -1,0 +1,44 @@
+{
+	"programs" : 
+	[
+		{
+			"command" : "./square_root.exe input_complex_1.txt",
+			"exit_code" : 0
+		},
+		{
+			"command" : "./mat_vec.exe input_matrix_1.txt input_vector_1.txt",
+			"exit_code" : 0
+		},
+		{
+			"command" : "./smat_T_vec.exe input_coomatrix_1.txt input_vector_1.txt",
+			"exit_code" : 0
+		}			
+	],	
+    "output_files" :
+    [
+        {
+            "name" : "square_root.txt",
+            "points" : 18,
+            "tolerance" : 1e-10,
+            "operator" : "eq"
+        },
+        {
+            "name" : "mat_vec.txt",
+            "points" : 16,
+            "tolerance" : 1e-15,
+            "operator" : "eq"
+        },
+        {
+            "name" : "smat_T_vec.txt",
+            "points" : 16,
+            "tolerance" : 1e-15,
+            "operator" : "eq"
+        }
+        
+    ],
+    "input_files" :
+    {
+	    "commands" : ["./gen_input_complex.exe 1", "./gen_input_vector.exe 1 32", "./gen_input_matrix.exe 1 32", "./gen_input_coomatrix.exe 1 32"],
+        "names" : ["input_complex_1.txt", "input_vector_1.txt", "input_matrix_1.txt", "input_coomatrix_1.txt"] 
+    }
+}
