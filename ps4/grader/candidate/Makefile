@@ -22,8 +22,8 @@ all: square_root.exe mat_vec.exe smat_T_vec.exe
 mat_vec.exe:	mat_vec.cpp amath583.hpp amath583IO.o
 	$(CXX) $(CXX_FLAGS) mat_vec.cpp amath583IO.o -o mat_vec.exe
 
-smat_T_vec.exe:	smat_T_vec.cpp amath583.hpp amath583IO.o
-	$(CXX) $(CXX_FLAGS) smat_T_vec.cpp amath583IO.o -o smat_T_vec.exe
+smat_T_vec.exe:	smat_T_vec.cpp COO.hpp amath583IO.o
+	$(CXX) $(CXX_FLAGS) smat_T_vec.cpp COO.o amath583IO.o -o smat_T_vec.exe
 
 square_root.exe:	square_root.cpp amath583IO.o
 	$(CXX) $(CXX_FLAGS) square_root.cpp amath583IO.o -o square_root.exe

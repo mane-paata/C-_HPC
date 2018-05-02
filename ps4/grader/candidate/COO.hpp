@@ -54,8 +54,15 @@ public:
 
   void matvec(const Vector& x, Vector& y) const {
     for (size_type k = 0; k < storage_.size(); ++k) {
+      y(col_indices_[k]) += storage_[k] * x(col_indices_[k]);
+    }
+  }
+
+  void trMatvec(const Vector& x, Vector& y) const {
+    for (size_type k = 0; k < storage_.size(); ++k) {
       y(row_indices_[k]) += storage_[k] * x(col_indices_[k]);
     }
+  }
   }
 
   void streamMatrix(std::ostream& outputFile) const {
