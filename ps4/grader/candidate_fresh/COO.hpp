@@ -58,12 +58,6 @@ public:
     }
   }
 
-  void trMatvec(const Vector& x, Vector& y) const {
-    for (size_type k = 0; k < storage_.size(); ++k) {
-      y(col_indices_[k]) += storage_[k] * x(row_indices_[k]);
-    }
-  }
-
   void streamMatrix(std::ostream& outputFile) const {
     assert(storage_.size() == row_indices_.size() && storage_.size() == col_indices_.size());
 
@@ -82,6 +76,7 @@ public:
     // Write tailer
     outputFile << "THIS IS THE END" << std::endl;
   }
+
 
 private:
   size_type num_rows_, num_cols_;

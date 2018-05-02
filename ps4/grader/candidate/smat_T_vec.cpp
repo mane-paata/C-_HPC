@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	Vector x = readVector(argv[2]);
   Vector y(x.num_rows());
 
-	A.trMatvec(x,y);
+	A.trMatvec(x, y);
 
 	writeVector(y, "smat_T_vec.txt");
 

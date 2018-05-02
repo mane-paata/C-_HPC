@@ -45,7 +45,7 @@ void runBenchmark_sparse(function<void(const COOMatrix&, const Vector&, Vector&)
 
     //
     // Fill in the next line with the correct formula
-    double flops = 2.0 * 1.e3 * numruns * i * i * i; // Still TODO!
+    double flops = 0.0;
     //
 
     cout << i << "\t" << i * i << "\t" << t << "\t" << flops / t << "\t" << t / ((double)numruns) << endl;
