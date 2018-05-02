@@ -22,7 +22,7 @@ VectorType operator*(const MatrixType& A, const VectorType& x) {
   Vector b(x.num_rows());
   for (size_t i = 0; i < A.num_rows(); ++i) {
     for(size_t j = 0; j < A.num_cols(); ++j){
-      b(i) = x(j) * M(i,j);
+      b(i) +=  A(i,j) * x(j);
     }
   }
   return b;

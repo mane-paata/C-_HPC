@@ -30,6 +30,24 @@ int main(int argc, char* argv[]) {
 #else
     runBenchmark(multiply, maxsize);
 #endif
+  else if (string(argv[1]) == "mult_ijk")
+#ifdef __TEMPLATED
+    runBenchmark(multiply<Matrix>, maxsize);
+#else
+    runBenchmark(multiply, maxsize);
+#endif
+  else if (string(argv[1]) == "mult_ikj")
+#ifdef __TEMPLATED
+    runBenchmark(multiply<Matrix>, maxsize);
+#else
+    runBenchmark(multiply, maxsize);
+#endif
+  else if (string(argv[1]) == "mult_jki")
+#ifdef __TEMPLATED
+    runBenchmark(multiply<Matrix>, maxsize);
+#else
+    runBenchmark(multiply, maxsize);
+#endif
   else if (string(argv[1]) == "hoistedmult")
     runBenchmark(hoistedMultiply, maxsize);
   else if (string(argv[1]) == "2x2")
@@ -58,7 +76,11 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 
+#ifdef __TEMPLATED
+void runBenchmark(function<void(const <MatrixType>&, const <MatrixType>&, <MatrixType>&)> f, long maxsize) {
+#else
 void runBenchmark(function<void(const Matrix&, const Matrix&, Matrix&)> f, long maxsize) {
+#endif
   cout << "N\tN*N\tTime\tFlops" << endl;
   for (long i = 8; i <= maxsize; i *= 2) {
     long   numruns = 8L * 1048L * 1048L * 1048L / (i * i * i) + 2;
@@ -66,9 +88,13 @@ void runBenchmark(function<void(const Matrix&, const Matrix&, Matrix&)> f, long 
     cout << i << "\t" << i * i << "\t" << t << "\t" << 2.0 * 1.e3 * numruns * i * i * i / t << endl;
   }
 }
-
+#ifdef __TEMPLATED
+double benchmark(int M, int N, int K, long numruns, function<void(const <MatrixType>&, const <MatrixType>&, <MatrixType>&)> f) {
+  <MatrixType> A(M, K), B(K, N), C(M, N);
+#else
 double benchmark(int M, int N, int K, long numruns, function<void(const Matrix&, const Matrix&, Matrix&)> f) {
   Matrix A(M, K), B(K, N), C(M, N);
+#endif
   randomize(A);
   randomize(B);
   randomize(C);
