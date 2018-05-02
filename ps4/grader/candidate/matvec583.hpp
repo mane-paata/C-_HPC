@@ -19,7 +19,13 @@
 
 template <typename MatrixType, typename VectorType>
 VectorType operator*(const MatrixType& A, const VectorType& x) {
-   /* write me */
+  Vector b(x.num_rows());
+  for (size_t i = 0; i < A.num_rows(); ++i) {
+    for(size_t j = 0; j < A.num_cols(); ++j){
+      b(i) = x(j) * M(i,j);
+    }
+  }
+  return b;
 }
 
 template <typename MatrixType, typename VectorType>

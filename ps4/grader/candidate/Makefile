@@ -17,6 +17,8 @@ TEMPLATED	= # -D__TEMPLATED  # uncomment this to turn on templates
 CXX_FLAGS	= $(OPT_FLAGS) $(DBG_FLAGS) $(PICKY) $(STD_FLAGS) $(TEMPLATED)
 CXX		= c++
 
+mat_vec.exe: mat_vec.cpp Matrix.o Vector.o amath583IO.o matvec583.o
+	c++ $(CXX_FLAGS) mat_vec.cpp Matrix.o Vector.o amath583IO.o matvec583.o -o add_vec.exe
 
 bench:	bench.o Matrix.o Vector.o amath583.o matmat583.o amath583IO.o
 	$(CXX) $(CXX_FLAGS) bench.o Matrix.o Vector.o amath583.o amath583IO.o matmat583.o -o bench

@@ -39,12 +39,24 @@ void multiply_ijk(const MatrixType& A, const MatrixType& B, MatrixType& C) {
 
 template <typename MatrixType>
 void multiply_ikj(const MatrixType& A, const MatrixType& B, MatrixType& C) { 
-  /* write me */ 
+  for (size_t i = 0; i < A.num_rows(); ++i) {
+    for (size_t k = 0; k < A.num_cols(); ++k) {
+      for (size_t j = 0; j < B.num_cols(); ++j) {
+        C(i, k) += A(i, k) * B(k, j);
+      }
+    }
+  }
 }
 
 template <typename MatrixType>
 void multiply_jki(const MatrixType& A, const MatrixType& B, MatrixType& C) {
-  /* write me */ 
+  for (size_t i = 0; i < A.num_rows(); ++i) {
+    for (size_t j = 0; j < B.num_cols(); ++j) {
+      for (size_t k = 0; k < A.num_cols(); ++k) {
+        C(i, j) += A(i, k) * B(k, j);
+      }
+    }
+  }
 }
 #else
 void multiply(const Matrix& A, const Matrix& B, Matrix& C);
