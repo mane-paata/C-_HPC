@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <cassert>
 
+#ifndef __TEMPLATED
 
 void multiply(const Matrix &A, const Matrix &B, Matrix &C) {
   basicMultiply(A, B, C);
@@ -352,3 +353,5 @@ Matrix operator*(const Matrix &A, const Matrix &B) {
 
   return C;
 }
+
+#endif

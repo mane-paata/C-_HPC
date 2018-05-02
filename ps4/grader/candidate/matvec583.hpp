@@ -48,7 +48,7 @@ void matvec_ij(const MatrixType& A, const VectorType& x, VectorType& y) {
 
 template <typename MatrixType, typename VectorType>
 void matvec_ji(const MatrixType& A, const VectorType& x, VectorType& y) {
-  for(size_t j = 0; i < A.num_cols(); ++j){
+  for(size_t j = 0; j < A.num_cols(); ++j){
     for(size_t i = 0; i < A.num_rows(); ++i){
       y(i) = A(i,j) * x(j);
     }

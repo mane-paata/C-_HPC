@@ -60,7 +60,6 @@ void multiply_jki(const MatrixType& A, const MatrixType& B, MatrixType& C) {
 }
 #else
 void multiply(const Matrix& A, const Matrix& B, Matrix& C);
-#endif
 
 void basicMultiply(const Matrix& A, const Matrix& B, Matrix& C);
 void hoistedMultiply(const Matrix& A, const Matrix& B, Matrix& C);
@@ -75,5 +74,6 @@ void copyBlockedTiledMultiply2x2(const Matrix& A, const Matrix& B, Matrix& C);
 void hoistedCopyBlockedTiledMultiply2x2(const Matrix& A, const Matrix& B, Matrix& C);
 void hoistedCopyBlockedTiledMultiply4x4(const Matrix& A, const Matrix& B, Matrix& C);
 Matrix operator*(const Matrix& A, const Matrix& B);
+#endif
 
 #endif    // __MATMAT583_HPP

@@ -18,6 +18,37 @@
 #include "Matrix.hpp"
 #include "Vector.hpp"
 
+#ifdef __TEMPLATED
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
+#include <functional>
+#include <random>
+
+template <typename MatrixType>
+void randomize(MatrixType& A) {
+  std::default_random_engine             generator;
+  std::uniform_real_distribution<double> distribution(2.0, 32.0);
+  static auto                            dice = std::bind(distribution, generator);
+
+  for (size_t i = 0; i < A.num_rows(); ++i) {
+    for (size_t j = 0; j < A.num_cols(); ++j) {
+      A(i, j) = dice();
+    }
+  }
+}
+
+template <typename MatrixType>
+void zeroize(MatrixType& C) {
+  for (size_t i = 0; i < C.num_rows(); ++i) {
+    for (size_t j = 0; j < C.num_cols(); ++j) {
+      C(i, j) = 0.0;
+    }
+  }
+}
+
+#endif
+
 Vector operator+(const Vector& x, const Vector& y);
 
 void zeroize(Matrix &);
