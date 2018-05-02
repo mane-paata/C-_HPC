@@ -30,17 +30,29 @@ VectorType operator*(const MatrixType& A, const VectorType& x) {
 
 template <typename MatrixType, typename VectorType>
 void matvec(const MatrixType& A, const VectorType& x, VectorType& y) {
-  /* write me */
+  for(size_t i = 0; i < A.num_rows(); ++i){
+    for(size_t j = 0; j < A.num_cols(); ++j){
+      y(i) += A(i,j) * x(j);
+    }
+  }
 }
 
 template <typename MatrixType, typename VectorType>
 void matvec_ij(const MatrixType& A, const VectorType& x, VectorType& y) {
-  /* write me */  
+  for(size_t i = 0; i < A.num_rows(); ++i){
+    for(size_t j = 0; j < A.num_cols(); ++j){
+      y(i) += A(i,j) * x(j);
+    }
+  } 
 }
 
 template <typename MatrixType, typename VectorType>
 void matvec_ji(const MatrixType& A, const VectorType& x, VectorType& y) {
-  /* write me */
+  for(size_t j = 0; i < A.num_cols(); ++j){
+    for(size_t i = 0; i < A.num_rows(); ++i){
+      y(i) = A(i,j) * x(j);
+    }
+  }
 }
    
 #else
