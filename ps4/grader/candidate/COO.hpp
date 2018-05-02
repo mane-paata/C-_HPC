@@ -63,7 +63,6 @@ public:
       y(row_indices_[k]) += storage_[k] * x(col_indices_[k]);
     }
   }
-  }
 
   void streamMatrix(std::ostream& outputFile) const {
     assert(storage_.size() == row_indices_.size() && storage_.size() == col_indices_.size());
@@ -83,7 +82,6 @@ public:
     // Write tailer
     outputFile << "THIS IS THE END" << std::endl;
   }
-
 
 private:
   size_type num_rows_, num_cols_;

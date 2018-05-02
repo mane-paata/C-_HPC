@@ -16,11 +16,11 @@ int main(int argc, char* argv[])
 
 	COOMatrix A = readCOOMatrix(argv[1]);
 	Vector x = readVector(argv[2]);
-  Vector y;
+  Vector y(x.num_rows());
 
-	trMatvec(x,y);
+	A.trMatvec(x,y);
 
-	writeVector(y, "mat_vec.txt");
+	writeVector(y, "smat_T_vec.txt");
 
   return 0;
 }
