@@ -20,8 +20,6 @@ int main(int argc, char* argv[])
 	Vector x = readVector(argv[2]);
 
 	Vector b = A * x;
-
 	writeVector(b, "mat_vec.txt");
-
   return 0;
 }

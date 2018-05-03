@@ -39,27 +39,16 @@ void multiply_ijk(const MatrixType& A, const MatrixType& B, MatrixType& C) {
 
 template <typename MatrixType>
 void multiply_ikj(const MatrixType& A, const MatrixType& B, MatrixType& C) { 
-  for (size_t i = 0; i < A.num_rows(); ++i) {
-    for (size_t k = 0; k < A.num_cols(); ++k) {
-      for (size_t j = 0; j < B.num_cols(); ++j) {
-        C(i, j) += A(i, k) * B(k, j);
-      }
-    }
-  }
+  /* write me */ 
 }
 
 template <typename MatrixType>
 void multiply_jki(const MatrixType& A, const MatrixType& B, MatrixType& C) {
-  for (size_t j = 0; j < B.num_cols(); ++j){
-    for (size_t k = 0; k < A.num_cols(); ++k){
-      for (size_t i = 0; i < A.num_rows(); ++i){
-        C(i, j) += A(i, k) * B(k, j);
-      }
-    }
-  }
+  /* write me */ 
 }
 #else
 void multiply(const Matrix& A, const Matrix& B, Matrix& C);
+#endif
 
 void basicMultiply(const Matrix& A, const Matrix& B, Matrix& C);
 void hoistedMultiply(const Matrix& A, const Matrix& B, Matrix& C);
@@ -74,6 +63,5 @@ void copyBlockedTiledMultiply2x2(const Matrix& A, const Matrix& B, Matrix& C);
 void hoistedCopyBlockedTiledMultiply2x2(const Matrix& A, const Matrix& B, Matrix& C);
 void hoistedCopyBlockedTiledMultiply4x4(const Matrix& A, const Matrix& B, Matrix& C);
 Matrix operator*(const Matrix& A, const Matrix& B);
-#endif
 
 #endif    // __MATMAT583_HPP

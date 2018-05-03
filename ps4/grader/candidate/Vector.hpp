@@ -14,8 +14,6 @@
 #include <vector>
 #include <cstddef>
 
-//#define __TEMPLATED
-
 class Vector {
 public:
   Vector(size_t M) : num_rows_(M), storage_(num_rows_) {}

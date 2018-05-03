@@ -42,11 +42,7 @@ void runBenchmark_sparse(function<void(const COOMatrix&, const Vector&, Vector&)
   for (long i = 16; i <= maxsize; i *= 4) {
     long   numruns = 4L * 1048L * 1048L * 1048L / (i * i) + 2;
     double t       = benchmark_sparse(i, i, i, numruns, f);
-
-    //
-    // Fill in the next line with the correct formula
-    double flops = 2.0 * 1.e3 * numruns * i * i * i; // Still TODO!
-    //
+    double flops   = 2.0 * 1.e3 * numruns * i * i;
 
     cout << i << "\t" << i * i << "\t" << t << "\t" << flops / t << "\t" << t / ((double)numruns) << endl;
   }

@@ -17,7 +17,10 @@ TEMPLATED	= -D__TEMPLATED  # uncomment this to turn on templates
 CXX_FLAGS	= $(OPT_FLAGS) $(DBG_FLAGS) $(PICKY) $(STD_FLAGS) $(TEMPLATED)
 CXX		= c++
 
-all: square_root.exe mat_vec.exe smat_T_vec.exe
+all: square_root.exe mat_vec.exe smat_T_vec.exe bench sparsebench
+
+square_root.exe:	square_root.cpp amath583IO.o
+	$(CXX) $(CXX_FLAGS) square_root.cpp amath583IO.o -o square_root.exe
 
 mat_vec.exe:	mat_vec.cpp amath583.hpp amath583IO.o
 	$(CXX) $(CXX_FLAGS) mat_vec.cpp amath583IO.o -o mat_vec.exe
@@ -25,17 +28,14 @@ mat_vec.exe:	mat_vec.cpp amath583.hpp amath583IO.o
 smat_T_vec.exe:	smat_T_vec.cpp COO.hpp amath583IO.o
 	$(CXX) $(CXX_FLAGS) smat_T_vec.cpp amath583IO.o -o smat_T_vec.exe
 
-square_root.exe:	square_root.cpp amath583IO.o
-	$(CXX) $(CXX_FLAGS) square_root.cpp amath583IO.o -o square_root.exe
-
 bench:	bench.o Matrix.o Vector.o amath583.o matmat583.o amath583IO.o
 	$(CXX) $(CXX_FLAGS) bench.o Matrix.o Vector.o amath583.o amath583IO.o matmat583.o -o bench
 
-bench.o: bench.cpp amath583.hpp Vector.hpp Matrix.hpp matmat583.hpp amath583IO.o
+bench.o	: bench.cpp amath583.hpp Vector.hpp Matrix.hpp matmat583.hpp matvec583.hpp amath583IO.o
 	$(CXX) $(CXX_FLAGS) -c bench.cpp
 
-sparsebench:	sparsebench.o COO.hpp Vector.o amath583.o amath583IO.o 
-	$(CXX) $(CXX_FLAGS) sparsebench.o Vector.o amath583.o amath583IO.o -o sparsebench
+sparsebench:	sparsebench.o COO.o Vector.o amath583.o amath583IO.o 
+	$(CXX) $(CXX_FLAGS) sparsebench.o COO.o Vector.o amath583.o amath583IO.o -o sparsebench
 
 sparsebench.o	: sparsebench.cpp amath583.hpp Vector.hpp COO.hpp
 	$(CXX) $(CXX_FLAGS) -c sparsebench.cpp

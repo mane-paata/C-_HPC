@@ -49,8 +49,8 @@ class ColMatrix {
 public:
   ColMatrix(size_t M, size_t N) : num_rows_(M), num_cols_(N), storage_(num_rows_ * num_cols_) {}
 
-        double& operator()(size_t i, size_t j)       { return storage_[j * num_rows_ + i]; }
-  const double& operator()(size_t i, size_t j) const { return storage_[j * num_rows_ + i]; }
+        double& operator()(size_t i, size_t j)       { return storage_[j * num_rows_ + i];}
+  const double& operator()(size_t i, size_t j) const { return storage_[j * num_rows_ + i];}
 
   size_t num_rows() const { return num_rows_; }
   size_t num_cols() const { return num_cols_; }

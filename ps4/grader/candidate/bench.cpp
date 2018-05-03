@@ -12,6 +12,7 @@
 #include "Timer.hpp"
 #include "amath583.hpp"
 #include "matmat583.hpp"
+#include "matvec583.hpp"
 #include <fstream>
 #include <functional>
 #include <iostream>
@@ -21,9 +22,7 @@ using namespace std;
 #ifdef __TEMPLATED
 template <typename MatrixType>
 double benchmark(int M, int N, int K, long numruns, function<void(const MatrixType&, const MatrixType&, MatrixType&)> f) {
-  
   MatrixType A(M, K), B(K, N), C(M, N);
-
   randomize(A);
   randomize(B);
   randomize(C);
@@ -36,12 +35,10 @@ double benchmark(int M, int N, int K, long numruns, function<void(const MatrixTy
   T.stop();
 
   zeroize(C);
-
   return T.elapsed();
 }
 
 void runBenchmark(function<void(const ColMatrix&, const ColMatrix&, ColMatrix&)> f, long maxsize) {
-  cout << "Running  templated Col" << endl;
   cout << "N\tN*N\tTime\tFlops" << endl;
   for (long i = 2; i <= maxsize; i *= 2) {
     long   numruns = 8L * 1048L * 1048L * 1048L / (i * i * i) + 2;
@@ -51,7 +48,6 @@ void runBenchmark(function<void(const ColMatrix&, const ColMatrix&, ColMatrix&)>
 }
 
 void runBenchmark(function<void(const RowMatrix&, const RowMatrix&, RowMatrix&)> f, long maxsize) {
-  cout << "Running  templated Row" << endl;
   cout << "N\tN*N\tTime\tFlops" << endl;
   for (long i = 2; i <= maxsize; i *= 2) {
     long   numruns = 8L * 1048L * 1048L * 1048L / (i * i * i) + 2;
@@ -59,17 +55,18 @@ void runBenchmark(function<void(const RowMatrix&, const RowMatrix&, RowMatrix&)>
     cout << i << "\t" << i * i << "\t" << t << "\t" << 2.0 * 1.e3 * numruns * i * i * i / t << endl;
   }
 }
-
-#else
-double benchmark(int M, int N, int K, long numruns, function<void(const Matrix&, const Matrix&, Matrix&)>);
-void   runBenchmark(function<void(const Matrix&, const Matrix&, Matrix&)> f, long maxsize);
 #endif
 
+/* For Matrix x Matrix */
+double benchmark(int M, int N, int K, long numruns, function<void(const Matrix&, const Matrix&, Matrix&)>);
+void   runBenchmark(function<void(const Matrix&, const Matrix&, Matrix&)> f, long maxsize);
 
+/* For Matrix x vector */
+double benchmark(int M, int N, long numruns, function<void (const Matrix&, const Vector&, Vector&)> f);
+void runBenchmark(function<void (const Matrix&, const Vector&, Vector&)> f, long maxsize);
 
 int main(int argc, char* argv[]) {
   long maxsize = (argc >= 3) ? stod(argv[2]) : 4096;
-
   bool col_mat = (argc == 4) && stod(argv[3]);
 
   if (string(argv[1]) == "mult")
@@ -81,8 +78,13 @@ int main(int argc, char* argv[]) {
     col_mat ? runBenchmark(multiply_ikj<ColMatrix>, maxsize) : runBenchmark(multiply_ikj<RowMatrix>, maxsize);
   else if (string(argv[1]) == "mult_jki")
     col_mat ? runBenchmark(multiply_jki<ColMatrix>, maxsize) : runBenchmark(multiply_jki<RowMatrix>, maxsize);
+  else if (string(argv[1]) == "mult_matvec_ij")
+    runBenchmark(matvec_ij<Matrix, Vector>, maxsize);
+  else if (string(argv[1]) == "mult_matvec_ji")
+    runBenchmark(matvec_ji<Matrix, Vector>, maxsize);
 #else
     runBenchmark(multiply, maxsize);
+#endif
   else if (string(argv[1]) == "hoistedmult")
     runBenchmark(hoistedMultiply, maxsize);
   else if (string(argv[1]) == "2x2")
@@ -105,7 +107,6 @@ int main(int argc, char* argv[]) {
     runBenchmark(hoistedCopyBlockedTiledMultiply2x2, maxsize);
   else if (string(argv[1]) == "copyblockhoisted4x4")
     runBenchmark(hoistedCopyBlockedTiledMultiply4x4, maxsize);
-#endif
   else
     return -1;
 
@@ -113,7 +114,7 @@ int main(int argc, char* argv[]) {
 }
 
 
-#ifndef __TEMPLATED
+/* For Matrix x Matrix */
 void runBenchmark(function<void(const Matrix&, const Matrix&, Matrix&)> f, long maxsize) {
   cout << "N\tN*N\tTime\tFlops" << endl;
   for (long i = 8; i <= maxsize; i *= 2) {
@@ -125,6 +126,35 @@ void runBenchmark(function<void(const Matrix&, const Matrix&, Matrix&)> f, long 
 
 double benchmark(int M, int N, int K, long numruns, function<void(const Matrix&, const Matrix&, Matrix&)> f) {
   Matrix A(M, K), B(K, N), C(M, N);
+  randomize(A);
+  randomize(B);
+  randomize(C);
+
+  Timer T;
+  T.start();
+  for (int i = 0; i < numruns; ++i) {
+    f(A, B, C);
+  }
+  T.stop();
+
+  zeroize(C);
+
+  return T.elapsed();
+}
+
+/***************** For Matrix x Vector      ***************/
+void runBenchmark(function<void (const Matrix&, const Vector&, Vector&)> f, long maxsize){
+  cout << "N\tN*N\tTime\tFlops" << endl;
+  for (long i = 2; i <= maxsize; i *= 2) {
+    long   numruns = 8L * 1048L * 1048L * 1048L / (i * i ) + 2;
+    double t       = benchmark(i, i, numruns, f);
+    cout << i << "\t" << i * i << "\t" << t << "\t" << 2.0 * 1.e3 * numruns * i * i / t << endl;
+  }
+}
+
+double benchmark(int M, int N, long numruns, function<void (const Matrix&, const Vector&, Vector&)> f){
+  Matrix A(M, N);
+  Vector B(N), C(M);
 
   randomize(A);
   randomize(B);
@@ -141,4 +171,3 @@ double benchmark(int M, int N, int K, long numruns, function<void(const Matrix&,
 
   return T.elapsed();
 }
-#endif
